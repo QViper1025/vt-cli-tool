@@ -25,43 +25,28 @@ echo [SUCCESS] Python detected:
 python --version
 echo.
 
-REM Install vt-py package
+REM Install vt-py package with progress bar
 echo Installing vt-py...
 echo.
 
-set "packages=vt-py"
-set "total=1"
-set "current=0"
+cls
+echo ========================================
+echo VirusTotal CLI Tool - Setup
+echo ========================================
+echo.
+echo Installing: vt-py
+echo.
+echo Progress: 50%%
+echo [#########################           ]
+echo.
 
-for %%p in (%packages%) do (
-    set /a current=!current!+1
-    set /a percent=(!current! * 100) / !total!
-    
-    REM Draw progress bar
-    cls
-    echo ========================================
-    echo VirusTotal CLI Tool - Setup
-    echo ========================================
+pip install vt-py
+
+if errorlevel 1 (
     echo.
-    echo Installing: %%p
-    echo.
-    echo Progress: !percent!%%
-    echo [
-    for /L %%i in (1,1,!percent!) do (
-        <nul set /p "=."
-    )
-    echo ]
-    echo.
-    
-    REM Install the package silently
-    pip install %%p --quiet >nul 2>&1
-    
-    if errorlevel 1 (
-        echo.
-        echo [ERROR] Failed to install %%p
-        pause
-        exit /b 1
-    )
+    echo [ERROR] Failed to install vt-py
+    pause
+    exit /b 1
 )
 
 REM Final success screen
