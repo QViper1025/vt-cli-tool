@@ -13,7 +13,7 @@ echo ""
 # Check if Python is installed
 if ! command -v python3 &> /dev/null; then
     echo "[ERROR] Python 3 is not installed"
-    echo "Please install Python 3 from https://www.python.org/"
+    echo "Please install Python 3 from https://www.python.org"
     exit 1
 fi
 
@@ -21,47 +21,36 @@ echo "[SUCCESS] Python detected:"
 python3 --version
 echo ""
 
-# Array of dependencies
-packages=("vt-py")
-total=${#packages[@]}
-current=0
-
-echo "Installing dependencies..."
+# Install vt-py package
+echo "Installing vt-py..."
 echo ""
 
-# Install each package
-for package in "${packages[@]}"; do
-    ((current++))
-    percent=$((current * 100 / total))
-    
-    # Draw progress bar
-    clear
-    echo "========================================"
-    echo "VirusTotal CLI Tool - Setup"
-    echo "========================================"
-    echo ""
-    echo "Installing: $package"
-    echo ""
-    echo "Progress: $percent%"
-    printf "["
-    for ((i = 0; i < percent / 5; i++)); do
-        printf "#"
-    done
-    for ((i = percent / 5; i < 20; i++)); do
-        printf " "
-    done
-    printf "]\n"
-    echo ""
-    
-    # Install the package silently
-    pip3 install "$package" -q 2>/dev/null
-    
-    if [ $? -ne 0 ]; then
-        echo ""
-        echo "[ERROR] Failed to install $package"
-        exit 1
-    fi
+clear
+echo "========================================"
+echo "VirusTotal CLI Tool - Setup"
+echo "========================================"
+echo ""
+echo "Installing: vt-py"
+echo ""
+echo "Progress: 50%"
+printf "["
+for ((i = 0; i < 13; i++)); do
+    printf "#"
 done
+for ((i = 13; i < 20; i++)); do
+    printf " "
+done
+printf "]\n"
+echo ""
+
+# Install the package
+pip3 install vt-py
+
+if [ $? -ne 0 ]; then
+    echo ""
+    echo "[ERROR] Failed to install vt-py"
+    exit 1
+fi
 
 # Final success screen
 clear
