@@ -1,4 +1,3 @@
-# vt_cli.py
 #!/usr/bin/env python3
 """
 VirusTotal CLI Tool - Interactive command-line interface for VirusTotal API
@@ -20,7 +19,7 @@ def load_api_key():
     try:
         with open('API_KEY.json', 'r') as f:
             config = json.load(f)
-            return config.get('api_key')
+            return config.get('API_KEY')
     except Exception as e:
         print(f"❌ Error reading API_KEY.json: {e}")
         sys.exit(1)
