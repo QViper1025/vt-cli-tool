@@ -1,6 +1,6 @@
 # vt-cli-tool
 
-This repository contains the vt-cli tool that utilizes the provided API.
+vt-cli tool is a python scan tool with most features of TotalVirus that utilizes the TotalVirus API.
 
 ## Installation
 
