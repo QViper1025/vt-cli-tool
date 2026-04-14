@@ -14,12 +14,24 @@ def load_api_key():
     if not os.path.exists('API_KEY.json'):
         print("❌ Error: API_KEY.json not found!")
         print("Please create API_KEY.json with your VirusTotal API key.")
+        print("\nExample API_KEY.json:")
+        print('{')
+        print('  "API_KEY": "YOUR_VIRUSTOTAL_API_KEY_HERE"')
+        print('}')
         sys.exit(1)
     
     try:
         with open('API_KEY.json', 'r') as f:
             config = json.load(f)
-            return config.get('API_KEY')
+            api_key = config.get('API_KEY')
+            if not api_key:
+                print("❌ Error: 'API_KEY' field not found in API_KEY.json!")
+                print("Make sure your API_KEY.json contains the 'API_KEY' field.")
+                sys.exit(1)
+            return api_key
+    except json.JSONDecodeError:
+        print("❌ Error: API_KEY.json is not valid JSON!")
+        sys.exit(1)
     except Exception as e:
         print(f"❌ Error reading API_KEY.json: {e}")
         sys.exit(1)
